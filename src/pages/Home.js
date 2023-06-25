@@ -8,10 +8,14 @@ const HomePage = styled.div`
   display: flex;
   flex-flow: column;
   align-items: center;
+  & > p {
+    text-align: center;
+  }
 `;
 const Title = styled.h1`
   margin: 0px;
   font-size: 45px;
+  text-align: center;
 `;
 const Actu = styled.h2`
   margin-top: 40px;

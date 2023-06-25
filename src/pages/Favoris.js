@@ -5,16 +5,20 @@ import Error from "../components/Error";
 import Loader from "../components/Loader";
 import Card from "../components/Card";
 
-const Cards = styled.div`
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: space-around;
-`;
-
 const FavorisContainer = styled.div`
   display: flex;
   flex-flow: column;
   align-items: center;
+
+  & > p {
+    text-align: center;
+  }
+`;
+
+const Cards = styled.div`
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
 `;
 
 const DeleteButton = styled.button`
