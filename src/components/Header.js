@@ -13,7 +13,8 @@ function Header() {
     flex-flow: row nowrap;
     align-items: center;
     justify-content: space-between;
-    padding: 15px;
+    padding-top: 15px;
+    padding-bottom: 15px;
     color: white;
     @media (max-width: 768px) {
       flex-direction: column;
@@ -27,6 +28,7 @@ function Header() {
     flex-flow: row nowrap;
     align-items: center;
     justify-content: center;
+    padding: 0px;
     @media (max-width: 768px) {
       display: ${isOpen ? "flex" : "none"};
       flex-direction: column;
