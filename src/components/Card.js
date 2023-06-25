@@ -9,7 +9,10 @@ const CardContainer = styled.div`
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   padding: 16px;
-  margin: 16px;
+  margin: 10px;
+  @media (max-width: 768px) {
+    margin: 5px;
+  }
 `;
 
 const CardTitle = styled.h2`
