@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { STORAGE_NAME } from "../global";
+import LikeButton from "./LikeButton";
 
 const CardContainer = styled.div`
   flex: 1 0 calc(20%);
@@ -33,8 +34,14 @@ const CardDescription = styled.p`
   margin: 0 0 16px 0;
 `;
 
-const LikeButton = styled.button`
-  width: 40px;
+const Buttons = styled.div`
+  display: flex;
+  flex-flow: row-wrap;
+  align-items: center;
+`;
+
+const MoreButton = styled.button`
+  margin-left: 10px;
   height: 40px;
   box-sizing: border-box;
   background-color: transparent;
@@ -51,84 +58,25 @@ const LikeButton = styled.button`
   &:hover {
     border: 1px solid black;
   }
-  &.liked {
-    border: 1px solid red;
-  }
-
-  svg {
-    fill: ${(props) => (props.liked ? "#f44336" : "gray")};
-    transition: fill 0.2s linear;
-  }
-
-  &:hover svg {
-    fill: ${(props) => (props.liked ? "#f44336" : "black")};
-  }
-
-  &.liked svg {
-    fill: #f44336;
-  }
 `;
 
-const HeartSVG = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 32 32"
-  >
-    <path d="M16.043 28.627C12.139 25.028 2 15.314 2 9.344 2 5.082 5.582 2 10.186 2 13.07 2 15.402 3.72 16 4.342 16.598 3.72 18.931 2 21.814 2 26.418 2 30 5.082 30 9.344c0 5.97-10.14 15.684-13.957 19.283l-.485.408-.515-.408z" />
-  </svg>
-);
-
-const Card = ({
-  event: { title, id, cover_url, date_description, lead_text },
-}) => {
-  const [liked, setLiked] = useState(false);
-
-  const handleLikeClick = () => {
-    let dataStore = localStorage[STORAGE_NAME];
-    if (!dataStore) {
-      const newSavedStorage = {};
-      newSavedStorage[id] = id;
-      localStorage[STORAGE_NAME] = JSON.stringify(newSavedStorage);
-    } else {
-      dataStore = JSON.parse(dataStore);
-      if (dataStore[id]) {
-        delete dataStore[id];
-        setLiked(false);
-      } else {
-        dataStore[id] = id;
-        setLiked(true);
-      }
-      localStorage[STORAGE_NAME] = JSON.stringify(dataStore);
-    }
-  };
-
-  useEffect(() => {
-    let dataStore = localStorage[STORAGE_NAME];
-    if (dataStore) {
-      dataStore = JSON.parse(dataStore);
-      if (!dataStore[id]) {
-        setLiked(false);
-      } else if (dataStore[id]) {
-        setLiked(true);
-      }
-    }
-  }, [id]);
-
+const Card = ({ event }) => {
   return (
     <CardContainer>
-      <CardImage src={cover_url} alt={id} />
-      <CardTitle>{title}</CardTitle>
-      <CardDate dangerouslySetInnerHTML={{ __html: date_description }} />
-      <CardDescription dangerouslySetInnerHTML={{ __html: lead_text }} />
-      <LikeButton
-        liked={liked}
-        className={liked ? "liked" : ""}
-        onClick={handleLikeClick}
-      >
-        <HeartSVG />
-      </LikeButton>
+      <CardImage src={event.fields.cover_url} alt={event.id} />
+      <CardTitle>{event.fields.title}</CardTitle>
+      <CardDate
+        dangerouslySetInnerHTML={{ __html: event.fields.date_description }}
+      />
+      <CardDescription
+        dangerouslySetInnerHTML={{ __html: event.fields.lead_text }}
+      />
+      <Buttons>
+        <LikeButton event={event} />
+        <Link to={`/event/${event.id}`}>
+          <MoreButton> En savoir plus </MoreButton>
+        </Link>
+      </Buttons>
     </CardContainer>
   );
 };
