@@ -27,11 +27,13 @@ const SearchInput = styled.input`
   width: 250px;
   padding: 5px;
   box-sizing: border-box;
+  border: 2px solid black;
   border-radius: 20px 0px 0px 20px;
 `;
 const SearchButton = styled.button`
   height: 40px;
   width: 40px;
+  border: 2px solid black;
   border-left: 0px;
   border-radius: 0px 20px 20px 0px;
   cursor: pointer;
